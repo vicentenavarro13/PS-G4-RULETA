@@ -57,7 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Toast.makeText(MainActivity.this, "Ha sacado el numero"+sectores[sectores.length - (grados - 1)],Toast.LENGTH_SHORT).show();
+                int indiceResultado = (sectores.length - (grados - 1)) % sectores.length;
+                String resultado = sectores[indiceResultado];
+                int resultadoNumerico = Integer.parseInt(resultado);
+                Toast.makeText(MainActivity.this, "Ha sacado el número " + resultadoNumerico, Toast.LENGTH_SHORT).show();
+
                 girando = false;
 
 
