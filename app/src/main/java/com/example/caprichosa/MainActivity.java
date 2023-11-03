@@ -14,6 +14,8 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private ImageView ruleta;
+
+    private RouletteView rouletteView;
     private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private static final int [] tamanosSector = new int [sectores.length];
     private static final Random  random = new Random();
@@ -23,9 +25,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        RouletteView rouletteView = new RouletteView(sectores.length);
         final ImageView boton = findViewById(R.id.boton);
-        ruleta = findViewById(R.id.ruleta);
+        ImageView image = findViewById(R.id.ruleta);
+        if (image != null && rouletteView != null) {
+            image.setImageDrawable(rouletteView);
+            image.setContentDescription(getResources().getString(R.string.roulette));
+        }
         getTamano();
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        super.onWindowFocusChanged(hasFocus);
     }
     private void girar(){
 
