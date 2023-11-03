@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         if (image != null && rouletteView != null) {
             image.setImageDrawable(rouletteView);
             image.setContentDescription(getResources().getString(R.string.roulette));
+
         }
         getTamano();
         boton.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!girando){
                     girando = true;
-                    girar();
+                    girar(image);
 
                 }
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onWindowFocusChanged(hasFocus);
     }
-    private void girar(){
+    private void girar(ImageView image){
 
         grados = random.nextInt(sectores.length-1);
 
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-      ruleta.startAnimation(animacion);
+      image.startAnimation(animacion);
 
     }
     private void getTamano () {
