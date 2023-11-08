@@ -1,8 +1,7 @@
 package com.example.caprichosa;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -10,13 +9,13 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView ruleta;
-
-    private RouletteView rouletteView;
-    private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7"};
     private static final int [] tamanosSector = new int [sectores.length];
     private static final Random  random = new Random();
     private boolean girando = false ;
@@ -25,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         RouletteView rouletteView = new RouletteView(sectores.length);
         final ImageView boton = findViewById(R.id.boton);
         ImageView image = findViewById(R.id.ruleta);
@@ -95,4 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.game_menu, menu);
+        return true;
+    }
+
 }
