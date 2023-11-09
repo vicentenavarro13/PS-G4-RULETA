@@ -7,6 +7,7 @@
     <string name="roulette">Ruleta</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="ingrese_opciones">Ingrese opciones separadas por salto de línea</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

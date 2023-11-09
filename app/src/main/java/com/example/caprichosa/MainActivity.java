@@ -1,50 +1,62 @@
 package com.example.caprichosa;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.EditText;
+import android.view.Menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7"};
+    private ImageView ruleta;
+
+
+    private RouletteView rouletteView;
+    private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private static final int [] tamanosSector = new int [sectores.length];
     private static final Random  random = new Random();
     private boolean girando = false ;
     private int grados = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        RouletteView rouletteView = new RouletteView(sectores.length);
+        final EditText editTextOpciones = findViewById(R.id.editTextOpciones);
         final ImageView boton = findViewById(R.id.boton);
-        ImageView image = findViewById(R.id.ruleta);
-        if (image != null && rouletteView != null) {
-            image.setImageDrawable(rouletteView);
-            image.setContentDescription(getResources().getString(R.string.roulette));
+        final ImageView image = findViewById(R.id.ruleta);
 
-        }
-        getTamano();
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!girando){
-                    girando = true;
-                    girar(image);
+                String opcionesTexto = editTextOpciones.getText().toString();
+                String[] opciones = opcionesTexto.split("\n");
 
+
+                rouletteView = new RouletteView(opciones);
+
+                if (image != null && rouletteView != null) {
+                    image.setImageDrawable(rouletteView);
+                    image.setContentDescription(getResources().getString(R.string.roulette));
                 }
+                getTamano();
+                girar(image);
 
             }
+
+
         });
 
     }
@@ -85,8 +97,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-      image.startAnimation(animacion);
+        image.startAnimation(animacion);
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.game_menu, menu);
+        return true;
     }
     private void getTamano () {
         int tamanoSector = 360/ sectores.length;
@@ -96,11 +114,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.game_menu, menu);
-        return true;
-    }
-
 }
