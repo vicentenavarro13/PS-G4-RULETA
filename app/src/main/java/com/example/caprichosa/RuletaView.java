@@ -36,7 +36,7 @@ public class RuletaView extends View {
 
             // Ajustar el tamaño del texto
             paint.setColor(Color.WHITE);
-            paint.setTextSize(100); // Ajusta este valor al tamaño deseado
+            paint.setTextSize(100);
             float textX = (float) (getWidth() / 2 + getWidth() / 3 * Math.cos(Math.toRadians(inicioAngulo + angulo / 2)));
             float textY = (float) (getHeight() / 2 + getHeight() / 3 * Math.sin(Math.toRadians(inicioAngulo + angulo / 2)));
             canvas.drawText(valor, textX, textY, paint);

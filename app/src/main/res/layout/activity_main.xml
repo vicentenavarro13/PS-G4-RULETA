@@ -32,15 +32,35 @@
         android:layout_below="@id/btnGenerarRuleta"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true">
-        <!-- Aquí puedes agregar cualquier otro contenido específico para tu ruleta -->
+
+
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageViewDebajo"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/relativeLayoutRuleta"
+        android:src="@drawable/botongirar"
+        android:scaleType="fitCenter"
+        android:clickable="true"
+        android:onClick="generarRuleta"/>
 
     <TextView
         android:id="@+id/textViewResultado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/relativeLayoutRuleta"
+        android:layout_below="@id/imageViewDebajo"
         android:layout_marginTop="16dp"
         android:text=""
         android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/imageViewEncima"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="-43dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/flecha" />
 </RelativeLayout>
