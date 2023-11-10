@@ -1,117 +1,80 @@
 package com.example.caprichosa;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.EditText;
-import android.view.Menu;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView ruleta;
 
+    private EditText editTextValores;
+    private RelativeLayout relativeLayoutRuleta;
+    private TextView textViewResultado;
 
-    private RouletteView rouletteView;
-    private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-    private static final int [] tamanosSector = new int [sectores.length];
-    private static final Random  random = new Random();
-    private boolean girando = false ;
-    private int grados = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        final EditText editTextOpciones = findViewById(R.id.editTextOpciones);
-        final ImageView boton = findViewById(R.id.boton);
-        final ImageView image = findViewById(R.id.ruleta);
 
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String opcionesTexto = editTextOpciones.getText().toString();
-                String[] opciones = opcionesTexto.split("\n");
-
-
-                rouletteView = new RouletteView(opciones);
-
-                if (image != null && rouletteView != null) {
-                    image.setImageDrawable(rouletteView);
-                    image.setContentDescription(getResources().getString(R.string.roulette));
-                }
-                getTamano();
-                girar(image);
-
-            }
-
-
-        });
-
+        editTextValores = findViewById(R.id.editTextValores);
+        relativeLayoutRuleta = findViewById(R.id.relativeLayoutRuleta);
+        textViewResultado = findViewById(R.id.textViewResultado);
     }
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
 
-        super.onWindowFocusChanged(hasFocus);
-    }
-    private void girar(ImageView image){
+    public void generarRuleta(View view) {
+        String valoresString = editTextValores.getText().toString().trim();
+        String[] valores = valoresString.split(" ");
 
-        grados = random.nextInt(sectores.length-1);
-
-        RotateAnimation animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[grados],
-                RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-        animacion.setDuration(3600);
-        animacion.setFillAfter(true);
-        animacion.setInterpolator(new DecelerateInterpolator());
-        animacion.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
+        List<String> sectores = new ArrayList<>();
+        for (String valor : valores) {
+            if (!valor.isEmpty()) {
+                sectores.add(valor);
             }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                int indiceResultado = (sectores.length - (grados - 1)) % sectores.length;
-                String resultado = sectores[indiceResultado];
-                int resultadoNumerico = Integer.parseInt(resultado);
-                Toast.makeText(MainActivity.this, "Ha sacado el número " + resultadoNumerico, Toast.LENGTH_SHORT).show();
-
-                girando = false;
-
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        image.startAnimation(animacion);
-
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.game_menu, menu);
-        return true;
-    }
-    private void getTamano () {
-        int tamanoSector = 360/ sectores.length;
-
-        for (int i=0 ; i < sectores.length ; i++){
-            tamanosSector[i] = (i+1) * tamanoSector;
-
         }
+
+        if (sectores.size() < 2) {
+            textViewResultado.setText("Ingrese al menos dos valores para generar la ruleta.");
+            return;
+        }
+
+        int totalSectores = sectores.size();
+        float angulo = 360f / totalSectores;
+
+        // Limpiar el RelativeLayout antes de agregar nuevos sectores
+        relativeLayoutRuleta.removeAllViews();
+
+        // Realizar la animación de giro
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360 * 5 + new Random().nextInt(360),
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(3000);
+        rotateAnimation.setFillAfter(true);
+        relativeLayoutRuleta.startAnimation(rotateAnimation);
+
+        // Mostrar el resultado
+        int resultadoIndex = new Random().nextInt(totalSectores);
+        String resultado = sectores.get(resultadoIndex);
+        int color = getRandomColor();
+        textViewResultado.setText("¡Giraste la ruleta y obtuviste: " + resultado + "!");
+        textViewResultado.setTextColor(color);
+
+        // Dibujar la ruleta
+        RuletaView ruletaView = new RuletaView(this, sectores, angulo);
+        relativeLayoutRuleta.addView(ruletaView);
+    }
+
+    private int getRandomColor() {
+        Random random = new Random();
+        return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 }

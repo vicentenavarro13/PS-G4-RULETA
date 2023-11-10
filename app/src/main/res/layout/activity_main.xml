@@ -1,61 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
     tools:context=".MainActivity">
 
-
-
-    <ImageView
-        android:id="@+id/ruleta"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:contentDescription="Una ruleta modificable"
-        android:scaleType="centerInside"
-        />
-
-    <ImageView
-        android:id="@+id/flecha"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/ruleta"
-        android:contentDescription="Flecha que elige sección"
-        android:src="@drawable/flecha" />
     <EditText
-        android:id="@+id/editTextOpciones"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="@string/ingrese_opciones"
-        android:inputType="textMultiLine"
-        android:layout_marginTop="65dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:autofillHints="text"
-        />
-
-
-    <ImageView
-        android:id="@+id/boton"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:contentDescription="Presiona el botón para girar la ruleta"
-        android:src="@drawable/botongirar" />
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/editTextValores"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
-</RelativeLayout>
+        android:hint="Ingresa los valores separados por espacios"
+        android:inputType="text"/>
 
+    <Button
+        android:id="@+id/btnGenerarRuleta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextValores"
+        android:layout_marginTop="16dp"
+        android:text="Generar Ruleta"
+        android:onClick="generarRuleta"/>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutRuleta"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_below="@id/btnGenerarRuleta"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true">
+        <!-- Aquí puedes agregar cualquier otro contenido específico para tu ruleta -->
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayoutRuleta"
+        android:layout_marginTop="16dp"
+        android:text=""
+        android:textStyle="bold"/>
+</RelativeLayout>
