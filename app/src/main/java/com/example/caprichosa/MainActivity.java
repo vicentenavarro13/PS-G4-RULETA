@@ -4,11 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar);
         editTextValores = findViewById(R.id.editTextValores);
         relativeLayoutRuleta = findViewById(R.id.relativeLayoutRuleta);
         textViewResultado = findViewById(R.id.textViewResultado);
@@ -77,4 +81,11 @@ public class MainActivity extends AppCompatActivity {
         Random random = new Random();
         return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.game_menu, menu);
+        return true;
+    }
+
 }

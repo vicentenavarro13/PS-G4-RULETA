@@ -13,6 +13,7 @@
         android:id="@+id/editTextValores"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:hint="Ingresa los valores separados por espacios"
         android:inputType="text"/>
 
@@ -20,7 +21,7 @@
         android:id="@+id/btnGenerarRuleta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editTextValores"
+        android:layout_above="@id/editTextValores"
         android:layout_marginTop="16dp"
         android:text="Generar Ruleta"
         android:onClick="generarRuleta"/>
@@ -29,7 +30,7 @@
         android:id="@+id/relativeLayoutRuleta"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_below="@id/btnGenerarRuleta"
+        android:layout_above="@id/btnGenerarRuleta"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true">
 
@@ -63,4 +64,18 @@
         android:layout_marginBottom="-43dp"
         android:scaleType="fitCenter"
         android:src="@drawable/flecha" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar3"
+            android:layout_width="377dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            tools:layout_editor_absoluteX="1dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
