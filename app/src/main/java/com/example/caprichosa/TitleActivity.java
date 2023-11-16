@@ -1,5 +1,7 @@
 package com.example.caprichosa;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +16,11 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
         Button button = findViewById(R.id.button);
+        Context self = this;
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setContentView(R.layout.activity_main);
-                Log.d("ROULETTE", "Let the games begin!");
+                Intent intent = new Intent(self, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

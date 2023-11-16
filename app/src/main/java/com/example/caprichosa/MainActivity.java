@@ -1,5 +1,6 @@
 package com.example.caprichosa;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -95,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
         if (itemId == R.id.new_game) {//newGame();
             return true;
         } else if (itemId == R.id.help) {
-            setContentView(R.layout.activity_modficacion);
+            Intent intent = new Intent(this, ModficacionActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
