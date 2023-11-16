@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,27 +25,6 @@
         android:layout_above="@id/editTextValores"
         android:layout_marginTop="16dp"
         android:text="Generar Ruleta"
-        android:onClick="generarRuleta"/>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayoutRuleta"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_above="@id/btnGenerarRuleta"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true">
-
-
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/imageViewDebajo"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/relativeLayoutRuleta"
-        android:src="@drawable/botongirar"
-        android:scaleType="fitCenter"
-        android:clickable="true"
         android:onClick="generarRuleta"/>
 
     <TextView
@@ -77,5 +57,31 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             tools:layout_editor_absoluteX="1dp" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutRuleta"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar3">
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imageViewDebajo"
+            android:layout_width="181dp"
+            android:layout_height="87dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:onClick="generarRuleta"
+            android:scaleType="fitCenter"
+            android:src="@drawable/botongirar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayoutRuleta" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

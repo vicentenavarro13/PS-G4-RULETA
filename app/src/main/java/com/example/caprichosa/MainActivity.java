@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.RotateAnimation;
 import android.widget.EditText;
@@ -86,6 +87,18 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.game_menu, menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection.
+        int itemId = item.getItemId();
+        if (itemId == R.id.new_game) {//newGame();
+            return true;
+        } else if (itemId == R.id.help) {
+            setContentView(R.layout.activity_modficacion);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
