@@ -18,15 +18,6 @@
         android:hint="Ingresa los valores separados por espacios"
         android:inputType="text"/>
 
-    <Button
-        android:id="@+id/btnGenerarRuleta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/editTextValores"
-        android:layout_marginTop="16dp"
-        android:text="Generar Ruleta"
-        android:onClick="generarRuleta"/>
-
     <TextView
         android:id="@+id/textViewResultado"
         android:layout_width="wrap_content"
