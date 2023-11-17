@@ -9,6 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ModficacionActivity extends AppCompatActivity {
 
@@ -17,19 +21,31 @@ public class ModficacionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modficacion);
         Button exitButton = findViewById(R.id.exitbutton);
+        Button button3 = findViewById(R.id.button3);
         Context self = this;
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ArrayList<String> arrayList = new ArrayList<String>();
+        CustomAdapter customAdapter = new CustomAdapter(arrayList);
+        recyclerView.setAdapter(customAdapter);
+        EditText editText = findViewById(R.id.editTextText);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                customAdapter.update(editText.getText().toString());
+                arrayList.add(editText.getText().toString());
+            }
+        });
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(self, MainActivity.class);
+                intent.setAction(Intent.ACTION_SEND);
+                intent.putExtra("list", arrayList);
                 startActivity(intent);
             }
         });
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        String[] result = {"Test111111111111111111111111111111111111111111111111111111","TEST","TEST","TEST","TEST","TEST","TEST","TEST","TEST","TEST","TEST"};
-        CustomAdapter customAdapter = new CustomAdapter(result);
-        recyclerView.setAdapter(customAdapter);
     }
     @Override
     protected void onResume() {

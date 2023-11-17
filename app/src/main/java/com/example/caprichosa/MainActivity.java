@@ -27,10 +27,20 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout relativeLayoutRuleta;
     private TextView textViewResultado;
 
+    private ArrayList<Integer> colors;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Bundle extras = getIntent().getExtras();
+        colors = new ArrayList<>();
+        if (extras != null) {
+            ArrayList<String> colors_string = extras.getStringArrayList("list");
+            for (String color : colors_string) {
+                colors.add(Color.parseColor(color));
+            }
+        }
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         editTextValores = findViewById(R.id.editTextValores);
@@ -75,13 +85,17 @@ public class MainActivity extends AppCompatActivity {
         textViewResultado.setTextColor(color);
 
         // Dibujar la ruleta
-        RuletaView ruletaView = new RuletaView(this, sectores, angulo);
+        RuletaView ruletaView = new RuletaView(this, sectores, angulo, colors);
         relativeLayoutRuleta.addView(ruletaView);
     }
 
     private int getRandomColor() {
         Random random = new Random();
-        return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        if (colors.size() == 0) {
+            return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        } else {
+            return colors.get(random.nextInt(colors.size()));
+        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

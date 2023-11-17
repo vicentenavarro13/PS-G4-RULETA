@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -15,10 +17,13 @@ public class RuletaView extends View {
     private List<String> sectores;
     private float angulo;
 
-    public RuletaView(Context context, List<String> sectores, float angulo) {
+    private ArrayList<Integer> colors;
+
+    public RuletaView(Context context, List<String> sectores, float angulo, ArrayList<Integer> colors) {
         super(context);
         this.sectores = sectores;
         this.angulo = angulo;
+        this.colors = colors;
     }
     @Override
     protected void onDraw(Canvas canvas) {
@@ -49,7 +54,11 @@ public class RuletaView extends View {
 
     private int getRandomColor() {
         Random random = new Random();
-        return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        if (colors.size() == 0) {
+            return Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+        } else {
+            return colors.get(random.nextInt(colors.size()));
+        }
     }
 }
 

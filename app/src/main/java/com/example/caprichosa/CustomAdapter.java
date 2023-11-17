@@ -1,5 +1,7 @@
 package com.example.caprichosa;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,9 +10,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    private String[] localDataSet;
+    private ArrayList<String> localDataSet;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -25,7 +29,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             // Define click listener for the ViewHolder's View
 
             textView = (TextView) view.findViewById(R.id.textView);
-            imageView = (ImageView) view.findViewById(R.id.imageView);
+            imageView = (ImageView) view.findViewById(R.id.imageView2);
         }
 
         public TextView getTextView() {
@@ -42,8 +46,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView
      */
-    public CustomAdapter(String[] dataSet) {
+    public CustomAdapter(ArrayList<String> dataSet) {
         localDataSet = dataSet;
+    }
+
+    public void update(String text) {
+        localDataSet.add(text);
+        notifyItemInserted(localDataSet.size()-1);
     }
 
     // Create new views (invoked by the layout manager)
@@ -62,13 +71,19 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(localDataSet[position]);
+        viewHolder.getTextView().setText(localDataSet.get(position));
+        try {
+            viewHolder.getImageView().setBackgroundColor(Color.parseColor(localDataSet.get(position)));
+        } catch (IllegalArgumentException e) {
+            viewHolder.getImageView().setBackgroundColor(Color.parseColor("black"));
+            Log.d("Error", "Color does not exist, please, try again. Black has been placed by default instead");
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return localDataSet.size();
     }
 }
 
