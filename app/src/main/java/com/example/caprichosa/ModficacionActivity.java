@@ -26,6 +26,7 @@ public class ModficacionActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<String> arrayList = new ArrayList<String>();
+        ArrayList<String> arrayList_to_send = new ArrayList<String>();
         CustomAdapter customAdapter = new CustomAdapter(arrayList);
         recyclerView.setAdapter(customAdapter);
         EditText editText = findViewById(R.id.editTextText);
@@ -34,7 +35,7 @@ public class ModficacionActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 customAdapter.update(editText.getText().toString());
-                arrayList.add(editText.getText().toString());
+                arrayList_to_send.add(editText.getText().toString());
             }
         });
         exitButton.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +43,7 @@ public class ModficacionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(self, MainActivity.class);
                 intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra("list", arrayList);
+                intent.putExtra("list", arrayList_to_send);
                 startActivity(intent);
             }
         });
