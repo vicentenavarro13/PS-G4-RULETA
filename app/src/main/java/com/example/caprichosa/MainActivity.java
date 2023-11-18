@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Realizar la animación de giro
         int hasta = new Random().nextInt(360);
-        RotateAnimation rotateAnimation = new RotateAnimation(0, -(hasta),
+        RotateAnimation rotateAnimation = new RotateAnimation(0, -(360*5+hasta),
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         rotateAnimation.setDuration(3000);
         rotateAnimation.setFillAfter(true);
