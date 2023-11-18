@@ -71,14 +71,27 @@ public class MainActivity extends AppCompatActivity {
         relativeLayoutRuleta.removeAllViews();
 
         // Realizar la animación de giro
-        RotateAnimation rotateAnimation = new RotateAnimation(0, 360 * 5 + new Random().nextInt(360),
+        int hasta = new Random().nextInt(360);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, -(hasta),
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         rotateAnimation.setDuration(3000);
         rotateAnimation.setFillAfter(true);
         relativeLayoutRuleta.startAnimation(rotateAnimation);
 
         // Mostrar el resultado
-        int resultadoIndex = new Random().nextInt(totalSectores);
+        int contadorAngulo = 0;
+        float contadorAngulo2 = angulo;
+        while (contadorAngulo2 < hasta) {
+            contadorAngulo2 += angulo;
+            if (contadorAngulo == sectores.size()) {
+                contadorAngulo = 0;
+            }
+            contadorAngulo++;
+        }
+        int resultadoIndex = contadorAngulo;
+        if (resultadoIndex >= sectores.size()) {
+            resultadoIndex = sectores.size()-1;
+        }
         String resultado = sectores.get(resultadoIndex);
         int color = getRandomColor();
         textViewResultado.setText("¡Giraste la ruleta y obtuviste: " + resultado + "!");
