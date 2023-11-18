@@ -66,6 +66,26 @@ public class MainActivity extends AppCompatActivity {
 
         int totalSectores = sectores.size();
         float angulo = 360f / totalSectores;
+        float last = 0;
+        float[] angulos = new float[sectores.size()];
+        int countersectores = 0;
+        while (countersectores < totalSectores) {
+            if (countersectores == 0) {
+                float angulo1 = new Random().nextInt(360);
+                last += angulo1;
+                angulos[0] = angulo1;
+            } else if (countersectores == sectores.size()-1) {
+                angulos[sectores.size()-1] = 360-last;
+            }
+            else {
+                int resta = (int) (360-angulos[countersectores-1]);
+                float angulo1 = new Random().nextInt(resta);
+                last += angulo1;
+                angulos[countersectores] = angulo1;
+            }
+            countersectores++;
+        }
+        // float[] angulos = {180, 23, 157};
 
         // Limpiar el RelativeLayout antes de agregar nuevos sectores
         relativeLayoutRuleta.removeAllViews();
@@ -77,8 +97,24 @@ public class MainActivity extends AppCompatActivity {
         rotateAnimation.setDuration(3000);
         rotateAnimation.setFillAfter(true);
         relativeLayoutRuleta.startAnimation(rotateAnimation);
-
+        int contadorAngulo = 0;
+        int contadorAngulo_2 = 0;
+        float contadorAngulo2 = angulos[0];
+        while (contadorAngulo2 < hasta) {
+            contadorAngulo2 += angulos[contadorAngulo_2+1];
+            if (contadorAngulo == sectores.size()) {
+                contadorAngulo = 0;
+            }
+            contadorAngulo++;
+            contadorAngulo_2++;
+        }
+        int resultadoIndex = contadorAngulo;
+        if (resultadoIndex >= sectores.size()) {
+            resultadoIndex = sectores.size()-1;
+        }
+        String resultado = sectores.get(resultadoIndex);
         // Mostrar el resultado
+        /*
         int contadorAngulo = 0;
         float contadorAngulo2 = angulo;
         while (contadorAngulo2 < hasta) {
@@ -93,12 +129,14 @@ public class MainActivity extends AppCompatActivity {
             resultadoIndex = sectores.size()-1;
         }
         String resultado = sectores.get(resultadoIndex);
+        */
         int color = getRandomColor();
         textViewResultado.setText("¡Giraste la ruleta y obtuviste: " + resultado + "!");
         textViewResultado.setTextColor(color);
 
         // Dibujar la ruleta
-        RuletaView ruletaView = new RuletaView(this, sectores, angulo, colors);
+        RuletaViewAngulos ruletaView = new RuletaViewAngulos(this, sectores, angulos, colors);
+        //RuletaView ruletaView = new RuletaView(this, sectores, angulo, colors);
         relativeLayoutRuleta.addView(ruletaView);
     }
 
