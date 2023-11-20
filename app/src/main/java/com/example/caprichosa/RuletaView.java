@@ -34,19 +34,25 @@ public class RuletaView extends View {
 
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.FILL);
-
+        int lastColor = 0;
+        int counter = 0;
         for (String valor : sectores) {
-            paint.setColor(getRandomColor());
+            if (counter-1 != -1 && sectores.get(counter-1).equals(sectores.get(counter))) {
+            } else {
+                lastColor = getRandomColor();
+            }
+            paint.setColor(lastColor);
             canvas.drawArc(0, 0, getWidth(), getHeight(), inicioAngulo, angulo, true, paint);
-
             // Ajustar el tamaño del texto
             paint.setColor(Color.WHITE);
             paint.setTextSize(100);
-            float textX = (float) (getWidth() / 2 + getWidth() / 3 * Math.cos(Math.toRadians((inicioAngulo + angulo / 2))));
-            float textY = (float) (getHeight() / 2 + getHeight() / 3 * Math.sin(Math.toRadians((inicioAngulo + angulo / 2))));
-            canvas.drawText(valor, textX, textY, paint);
-
+            if (counter == Math.round(((sectores.indexOf(valor)+sectores.lastIndexOf(valor))/2))) {
+                float textX = (float) (getWidth() / 2 + getWidth() / 3 * Math.cos(Math.toRadians((inicioAngulo + angulo / 2))));
+                float textY = (float) (getHeight() / 2 + getHeight() / 3 * Math.sin(Math.toRadians((inicioAngulo + angulo / 2))));
+                canvas.drawText(valor, textX, textY, paint);
+            }
             inicioAngulo += angulo;
+            counter++;
         }
     }
 

@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         int totalSectores = sectores.size();
         float angulo = 360f / totalSectores;
+        /*
         float last = 0;
         float[] angulos = new float[sectores.size()];
         int countersectores = 0;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
             countersectores++;
         }
+        */
         // float[] angulos = {180, 23, 157};
 
         // Limpiar el RelativeLayout antes de agregar nuevos sectores
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         rotateAnimation.setDuration(3000);
         rotateAnimation.setFillAfter(true);
         relativeLayoutRuleta.startAnimation(rotateAnimation);
+        /*
         int contadorAngulo = 0;
         int contadorAngulo_2 = 0;
         float contadorAngulo2 = angulos[0];
@@ -113,8 +116,9 @@ public class MainActivity extends AppCompatActivity {
             resultadoIndex = sectores.size()-1;
         }
         String resultado = sectores.get(resultadoIndex);
+        */
         // Mostrar el resultado
-        /*
+
         int contadorAngulo = 0;
         float contadorAngulo2 = angulo;
         while (contadorAngulo2 < hasta) {
@@ -129,14 +133,14 @@ public class MainActivity extends AppCompatActivity {
             resultadoIndex = sectores.size()-1;
         }
         String resultado = sectores.get(resultadoIndex);
-        */
+
         int color = getRandomColor();
         textViewResultado.setText("¡Giraste la ruleta y obtuviste: " + resultado + "!");
         textViewResultado.setTextColor(color);
 
         // Dibujar la ruleta
-        RuletaViewAngulos ruletaView = new RuletaViewAngulos(this, sectores, angulos, colors);
-        //RuletaView ruletaView = new RuletaView(this, sectores, angulo, colors);
+        //RuletaViewAngulos ruletaView = new RuletaViewAngulos(this, sectores, angulos, colors);
+        RuletaView ruletaView = new RuletaView(this, sectores, angulo, colors);
         relativeLayoutRuleta.addView(ruletaView);
     }
 
