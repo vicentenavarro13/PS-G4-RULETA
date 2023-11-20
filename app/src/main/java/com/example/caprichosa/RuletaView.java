@@ -39,7 +39,11 @@ public class RuletaView extends View {
         for (String valor : sectores) {
             if (counter-1 != -1 && sectores.get(counter-1).equals(sectores.get(counter))) {
             } else {
-                lastColor = getRandomColor();
+                int colorObtained = getRandomColor();
+                while (lastColor == colorObtained && colors.size() > 1) {
+                    colorObtained = getRandomColor();
+                }
+                lastColor = colorObtained;
             }
             paint.setColor(lastColor);
             canvas.drawArc(0, 0, getWidth(), getHeight(), inicioAngulo, angulo, true, paint);
