@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".RoulettesActivity">
+
+    <Button
+        android:id="@+id/ruleta1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ruleta personalizable"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/casino"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ruleta de casino"
+        android:layout_below="@id/ruleta1"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/rusa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ruleta rusa"
+        android:layout_below="@id/casino" />
+
+</RelativeLayout>

@@ -19,7 +19,7 @@ public class TitleActivity extends AppCompatActivity {
         Context self = this;
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(self, MainActivity.class);
+                Intent intent = new Intent(self, RoulettesActivity.class);
                 startActivity(intent);
             }
         });

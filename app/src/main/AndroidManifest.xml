@@ -19,14 +19,26 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".RoulettesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CasinoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RussianActivity"
+            android:exported="false" />
+        <activity
             android:name=".TitleActivity"
             android:exported="true">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
