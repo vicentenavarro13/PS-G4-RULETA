@@ -7,24 +7,41 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class CasinoActivity extends AppCompatActivity {
     private ImageView ruleta;
     private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private HashMap<String, Integer> apuestas = new HashMap<>();
     private static final int [] tamanosSector = new int [sectores.length];
     private static final Random  random = new Random();
     private boolean girando = false ;
     private int grados = 0;
+
+    private EditText editTextApuesta;
+    private TextView textViewRestantes;
+
+    int currentValue = 10;
+
+    int heldValue = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_casino);
 
         final ImageView boton = findViewById(R.id.boton);
+        editTextApuesta = findViewById(R.id.editTextText2apuestas);
+        textViewRestantes = findViewById(R.id.textViewRestante);
+        textViewRestantes.setText("10");
+
         ruleta = findViewById(R.id.ruleta);
         getTamano();
         boton.setOnClickListener(new View.OnClickListener() {
@@ -41,12 +58,31 @@ public class CasinoActivity extends AppCompatActivity {
 
     }
     private void girar(){
-
-        grados = random.nextInt(sectores.length-1);
-
+        apuestas = new HashMap<>();
+        String valoresString = editTextApuesta.getText().toString().trim();
+        String[] valores = valoresString.split(" ");
+        for (String valor : valores) {
+            if (apuestas.get(valor) != null) {
+                apuestas.put(valor, apuestas.get(valor)+1);
+                heldValue++;
+                currentValue--;
+            } else {
+                apuestas.put(valor, 1);
+                heldValue++;
+                currentValue--;
+            }
+        }
+        String valueUpdated = "" + currentValue;
+        textViewRestantes.setText(valueUpdated);
+        grados = 0;
+        while (grados == 0) {
+            grados = random.nextInt(sectores.length+1);
+        }
+        int go_to = grados/360;
         RotateAnimation animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[grados],
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         animacion.setDuration(3600);
+
         animacion.setFillAfter(true);
         animacion.setInterpolator(new DecelerateInterpolator());
         animacion.setAnimationListener(new Animation.AnimationListener() {
@@ -57,7 +93,17 @@ public class CasinoActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Toast.makeText(CasinoActivity.this, "Ha sacado el numero"+sectores[sectores.length - (grados - 1)],Toast.LENGTH_SHORT).show();
+                String valor = sectores[sectores.length - grados];
+                    if (apuestas.get(valor) != null) {
+                        Toast.makeText(CasinoActivity.this, "Ganó la apuesta", Toast.LENGTH_SHORT).show();
+                        currentValue += (2*heldValue);
+                        textViewRestantes.setText(""+currentValue);
+
+                    } else {
+                        Toast.makeText(CasinoActivity.this, "Perdió la apuesta", Toast.LENGTH_SHORT).show();
+
+                    }
+                    heldValue = 0;
                 girando = false;
 
 

@@ -53,8 +53,10 @@ public class RussianActivity extends AppCompatActivity {
     }
     private void girar(){
 
-        grados = random.nextInt(sectores.length-1);
-
+        grados = 0;
+        while (grados == 0) {
+            grados = random.nextInt(sectores.length+1);
+        }
         RotateAnimation animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[grados],
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         animacion.setDuration(3600);
@@ -68,7 +70,7 @@ public class RussianActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                int valor = sectores.length - (grados - 1);
+                int valor = sectores.length - grados;
                 if (balas.get(valor) == true) {
                     Toast.makeText(RussianActivity.this, "Adios", Toast.LENGTH_SHORT).show();
                     try {

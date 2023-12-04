@@ -50,4 +50,16 @@
         android:ems="10"
         android:inputType="text"
         android:text="Name" />
+
+    <TextView
+        android:id="@+id/textViewRestante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-142dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="353dp"
+        android:layout_toEndOf="@+id/textView2"
+        android:text="10" />
 </RelativeLayout>
