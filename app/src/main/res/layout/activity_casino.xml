@@ -32,4 +32,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:src="@drawable/botongirar" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Pongan sus apuestas!" />
+
+    <EditText
+        android:id="@+id/editTextText2apuestas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="198dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name" />
 </RelativeLayout>

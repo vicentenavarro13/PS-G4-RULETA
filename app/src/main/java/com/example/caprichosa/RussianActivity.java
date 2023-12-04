@@ -1,5 +1,7 @@
 package com.example.caprichosa;
 
+import static java.lang.Thread.sleep;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,7 +12,10 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import kotlin.jvm.internal.BooleanSpreadBuilder;
 
 public class RussianActivity extends AppCompatActivity {
     private ImageView ruleta;
@@ -19,10 +24,16 @@ public class RussianActivity extends AppCompatActivity {
     private static final Random  random = new Random();
     private boolean girando = false ;
     private int grados = 0;
+    private ArrayList<Boolean> balas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_russian);
+        balas = new ArrayList<>();
+        Random random = new Random();
+        for (String s : sectores) {
+            balas.add(random.nextBoolean());
+        }
 
         final ImageView boton = findViewById(R.id.boton);
         ruleta = findViewById(R.id.ruleta);
@@ -57,7 +68,18 @@ public class RussianActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Toast.makeText(RussianActivity.this, "Ha sacado el numero"+sectores[sectores.length - (grados - 1)],Toast.LENGTH_SHORT).show();
+                int valor = sectores.length - (grados - 1);
+                if (balas.get(valor) == true) {
+                    Toast.makeText(RussianActivity.this, "Adios", Toast.LENGTH_SHORT).show();
+                    try {
+                        sleep(1000*3);
+                        System.exit(0);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    Toast.makeText(RussianActivity.this, "Sobrevives", Toast.LENGTH_SHORT).show();
+                }
                 girando = false;
 
 
