@@ -2,6 +2,7 @@ package com.example.caprichosa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -59,6 +60,8 @@ public class CasinoActivity extends AppCompatActivity {
     }
     private void girar(){
         apuestas = new HashMap<>();
+        MediaPlayer song = MediaPlayer.create(this, R.raw.ruletagirando);
+        song.start();
         String valoresString = editTextApuesta.getText().toString().trim();
         String[] valores = valoresString.split(" ");
         for (String valor : valores) {
@@ -78,9 +81,16 @@ public class CasinoActivity extends AppCompatActivity {
         while (grados == 0) {
             grados = random.nextInt(sectores.length+1);
         }
+        RotateAnimation animacion = null;
+        if (grados == sectores.length) {
+            animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[0],
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        } else {
+            animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[grados],
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        }
         int go_to = grados/360;
-        RotateAnimation animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[grados],
-                RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
         animacion.setDuration(3600);
 
         animacion.setFillAfter(true);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -91,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Limpiar el RelativeLayout antes de agregar nuevos sectores
         relativeLayoutRuleta.removeAllViews();
-
+        MediaPlayer song = MediaPlayer.create(this, R.raw.song0);
+        song.start();
         // Realizar la animación de giro
         int hasta = new Random().nextInt(360);
         RotateAnimation rotateAnimation = new RotateAnimation(0, -(360*5+hasta),

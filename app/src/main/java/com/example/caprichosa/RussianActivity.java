@@ -4,6 +4,8 @@ import static java.lang.Thread.sleep;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,6 +21,8 @@ import kotlin.jvm.internal.BooleanSpreadBuilder;
 
 public class RussianActivity extends AppCompatActivity {
     private ImageView ruleta;
+
+    private Context context;
     private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private static final int [] tamanosSector = new int [sectores.length];
     private static final Random  random = new Random();
@@ -27,6 +31,7 @@ public class RussianActivity extends AppCompatActivity {
     private ArrayList<Boolean> balas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_russian);
         balas = new ArrayList<>();
@@ -52,13 +57,20 @@ public class RussianActivity extends AppCompatActivity {
 
     }
     private void girar(){
-
+        MediaPlayer song = MediaPlayer.create(this, R.raw.cartidgeholderspinning);
+        song.start();
         grados = 0;
         while (grados == 0) {
             grados = random.nextInt(sectores.length+1);
         }
-        RotateAnimation animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[grados],
-                RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        RotateAnimation animacion = null;
+        if (grados == sectores.length) {
+            animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[0],
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        } else {
+            animacion = new RotateAnimation(0,(360 * sectores.length) + tamanosSector[grados],
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        }
         animacion.setDuration(3600);
         animacion.setFillAfter(true);
         animacion.setInterpolator(new DecelerateInterpolator());
@@ -70,9 +82,11 @@ public class RussianActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                int valor = sectores.length - grados;
-                if (balas.get(valor) == true) {
+                int index = sectores.length-grados;
+                if (balas.get(index) == true) {
                     Toast.makeText(RussianActivity.this, "Adios", Toast.LENGTH_SHORT).show();
+                    MediaPlayer song = MediaPlayer.create(context, R.raw.gunfiringashot);
+                    song.start();
                     try {
                         sleep(1000*3);
                         System.exit(0);
@@ -81,6 +95,8 @@ public class RussianActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(RussianActivity.this, "Sobrevives", Toast.LENGTH_SHORT).show();
+                    MediaPlayer song = MediaPlayer.create(context, R.raw.clickingsound);
+                    song.start();
                 }
                 girando = false;
 
