@@ -2,6 +2,7 @@ package com.example.caprichosa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.Random;
 
 public class CasinoActivity extends AppCompatActivity {
     private ImageView ruleta;
+    private Context context;
     private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private HashMap<String, Integer> apuestas = new HashMap<>();
     private static final int [] tamanosSector = new int [sectores.length];
@@ -37,7 +39,7 @@ public class CasinoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_casino);
-
+        context = this;
         final ImageView boton = findViewById(R.id.boton);
         editTextApuesta = findViewById(R.id.editTextText2apuestas);
         textViewRestantes = findViewById(R.id.textViewRestante);
@@ -105,11 +107,15 @@ public class CasinoActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 String valor = sectores[sectores.length - grados];
                     if (apuestas.get(valor) != null) {
+                        MediaPlayer song = MediaPlayer.create(context, R.raw.victorymusic);
+                        song.start();
                         Toast.makeText(CasinoActivity.this, "Ganó la apuesta", Toast.LENGTH_SHORT).show();
                         currentValue += (2*heldValue);
                         textViewRestantes.setText(""+currentValue);
 
                     } else {
+                        MediaPlayer song = MediaPlayer.create(context, R.raw.lossmusic);
+                        song.start();
                         Toast.makeText(CasinoActivity.this, "Perdió la apuesta", Toast.LENGTH_SHORT).show();
 
                     }
