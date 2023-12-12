@@ -20,7 +20,7 @@ import java.util.Random;
 public class CasinoActivity extends AppCompatActivity {
     private ImageView ruleta;
     private Context context;
-    private static final String[] sectores = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private static final String[] sectores = {"0", "32", "15", "19", "4", "21", "2", "25", "17", "34", "6", "27", "13", "36", "11", "30", "8", "23", "10", "5", "24", "16", "33", "1", "20", "14", "31", "9", "22", "18", "29", "7", "28", "12", "35", "3", "26"};
     private HashMap<String, Integer> apuestas = new HashMap<>();
     private static final int [] tamanosSector = new int [sectores.length];
     private static final Random  random = new Random();
@@ -105,25 +105,29 @@ public class CasinoActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                String valor = sectores[sectores.length - grados];
-                    if (apuestas.get(valor) != null) {
-                        MediaPlayer song = MediaPlayer.create(context, R.raw.victorymusic);
-                        song.start();
-                        Toast.makeText(CasinoActivity.this, "Ganó la apuesta", Toast.LENGTH_SHORT).show();
-                        currentValue += (2*heldValue);
-                        textViewRestantes.setText(""+currentValue);
+                int sectorIndex = sectores.length - grados;
+                if (sectorIndex < 0) {
+                    sectorIndex += sectores.length;
+                }
+                String valor = sectores[sectorIndex];
 
-                    } else {
-                        MediaPlayer song = MediaPlayer.create(context, R.raw.lossmusic);
-                        song.start();
-                        Toast.makeText(CasinoActivity.this, "Perdió la apuesta", Toast.LENGTH_SHORT).show();
+                MediaPlayer song;
+                if (apuestas.get(valor) != null) {
+                    song = MediaPlayer.create(context, R.raw.victorymusic);
+                    Toast.makeText(CasinoActivity.this, "Ganó la apuesta en el número: " + valor, Toast.LENGTH_SHORT).show();
+                    currentValue += (2 * heldValue);
+                } else {
+                    song = MediaPlayer.create(context, R.raw.lossmusic);
+                    Toast.makeText(CasinoActivity.this, "Perdió la apuesta en el número: " + valor, Toast.LENGTH_SHORT).show();
+                }
 
-                    }
-                    heldValue = 0;
+                song.start();
+                heldValue = 0;
                 girando = false;
-
-
+                textViewRestantes.setText(String.valueOf(currentValue));
             }
+
+
 
             @Override
             public void onAnimationRepeat(Animation animation) {
