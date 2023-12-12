@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+
     tools:context=".CasinoActivity">
 
     <ImageView
@@ -18,8 +21,8 @@
 
     <ImageView
         android:id="@+id/flecha"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/ruleta"
         android:src="@drawable/flecha" />
@@ -37,7 +40,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¡Pongan sus apuestas!" />
+        android:text="" />
 
     <EditText
         android:id="@+id/editTextText2apuestas"
@@ -45,11 +48,40 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="51dp"
-        android:layout_marginEnd="198dp"
+        android:layout_marginTop="-222dp"
+        android:layout_marginEnd="119dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="Name" />
+
+
+        />
+
+    <EditText
+        android:id="@+id/editTextMontoApuesta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextText2apuestas"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="79dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Monto de apuesta"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/editTextNumeroApuesta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextMontoApuesta"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Número de apuesta"
+        android:inputType="number" />
 
     <TextView
         android:id="@+id/textViewRestante"
@@ -62,4 +94,17 @@
         android:layout_marginEnd="353dp"
         android:layout_toEndOf="@+id/textView2"
         android:text="10" />
+
+    <TextView
+        android:id="@+id/textViewSaldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="118dp"
+        android:layout_marginTop="162dp"
+        android:layout_marginEnd="16dp"
+
+        android:text="Saldo: 100" />
 </RelativeLayout>
