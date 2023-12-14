@@ -28,8 +28,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.742"
-        app:srcCompat="@drawable/ruleta"
-        tools:srcCompat="@drawable/ruleta" />
+        app:srcCompat="@drawable/ruleta_image"
+        tools:srcCompat="@drawable/ruleta_image" />
 
     <Button
         android:id="@+id/button"

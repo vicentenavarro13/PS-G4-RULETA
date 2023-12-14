@@ -3,8 +3,10 @@ package com.example.caprichosa;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -21,7 +23,7 @@ import java.util.Random;
 public class CasinoActivity extends AppCompatActivity {
     private ImageView ruleta;
     private Context context;
-    private static final String[] sectores = {"0", "32", "15", "19", "4", "21", "2", "25", "17", "34", "6", "27", "13", "36", "11", "30", "8", "23", "10", "5", "24", "16", "33", "1", "20", "14", "31", "9", "22", "18", "29", "7", "28", "12", "35", "3", "26"};
+    private static final String[] sectores = {"0", "32", "15", "19", "4", "21", "2", "25", "17", "34", "37", "6", "27", "13", "36", "11", "30", "8", "23", "10", "5", "24", "16", "33", "1", "20", "14", "31", "9", "22", "18", "29", "7", "28", "12", "35", "3", "26"};
     private HashMap<String, Integer> apuestas = new HashMap<>();
     private static final int[] tamanosSector = new int[sectores.length];
     private static final Random random = new Random();
@@ -33,6 +35,7 @@ public class CasinoActivity extends AppCompatActivity {
     private EditText editTextNumeroApuesta;
     private TextView textViewRestantes;
     private TextView textViewSaldo;
+    private ImageView roulette;
 
     private int currentValue = 100; // Saldo inicial
     private int heldValue = 0;
@@ -41,9 +44,11 @@ public class CasinoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ruletaSize", ""+sectores.length);
         setContentView(R.layout.activity_casino);
         context = this;
         final ImageView boton = findViewById(R.id.boton);
+        roulette = findViewById(R.id.ruleta);
         editTextApuesta = findViewById(R.id.editTextText2apuestas);
         editTextMontoApuesta = findViewById(R.id.editTextMontoApuesta);
         editTextNumeroApuesta = findViewById(R.id.editTextNumeroApuesta);
@@ -66,9 +71,11 @@ public class CasinoActivity extends AppCompatActivity {
     }
 
     private void girar() {
-        apuestas = new HashMap<>();
+        roulette.setImageResource(R.drawable.casino);
+       // apuestas = new HashMap<>();
         MediaPlayer song = MediaPlayer.create(this, R.raw.ruletagirando);
         song.start();
+        /*
         String valoresString = editTextApuesta.getText().toString().trim();
         String[] valores = valoresString.split(" ");
         for (String valor : valores) {
@@ -84,18 +91,19 @@ public class CasinoActivity extends AppCompatActivity {
         }
         String valueUpdated = "" + currentValue;
         textViewRestantes.setText(valueUpdated);
-        grados = 0;
-        while (grados == 0) {
-            grados = random.nextInt(sectores.length + 1);
+        */
+        grados = 1;
+        grados = random.nextInt(sectores.length);
+        int gradoCounter = 0;
+        int getme = 0;
+        while (gradoCounter < grados) {
+            getme += tamanosSector[gradoCounter];
+            gradoCounter++;
         }
         RotateAnimation animacion = null;
-        if (grados == sectores.length) {
-            animacion = new RotateAnimation(0, (360 * sectores.length) + tamanosSector[0],
+        animacion = new RotateAnimation(0, -((360*10)+getme),
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-        } else {
-            animacion = new RotateAnimation(0, (360 * sectores.length) + tamanosSector[grados],
-                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-        }
+
         int go_to = grados / 360;
 
         animacion.setDuration(3600);
@@ -109,17 +117,16 @@ public class CasinoActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                int sectorIndex = sectores.length - grados;
-                if (sectorIndex < 0) {
-                    sectorIndex += sectores.length;
-                }
+                int sectorIndex = grados;
                 String valor = sectores[sectorIndex];
+                Log.d("valor_obtenido", valor);
 
                 MediaPlayer song;
-                if (apuestas.get(valor) != null) {
+                if (apuestas.get(valor) != null || apuestas.get("") != null && valor.equals("0")) {
                     song = MediaPlayer.create(context, R.raw.victorymusic);
                     Toast.makeText(CasinoActivity.this, "Ganaste en el número: " + valor, Toast.LENGTH_SHORT).show();
-                    currentValue += (montoApuesta * multiplicadorGanancia);
+                    currentValue += (apuestas.get(valor) * multiplicadorGanancia);
+                    textViewSaldo.setText("Saldo: "+currentValue);
                 } else {
                     song = MediaPlayer.create(context, R.raw.lossmusic);
                     Toast.makeText(CasinoActivity.this, "Perdiste en el número: " + valor, Toast.LENGTH_SHORT).show();
@@ -140,8 +147,10 @@ public class CasinoActivity extends AppCompatActivity {
     }
 
     private void realizarApuesta() {
+        apuestas = new HashMap<>();
         String montoString = editTextMontoApuesta.getText().toString().trim();
         String numeroString = editTextNumeroApuesta.getText().toString().trim();
+        Log.d("valor_monto", numeroString);
 
         if (montoString.isEmpty() || numeroString.isEmpty()) {
             Toast.makeText(CasinoActivity.this, "Ingrese el monto y el número de la apuesta", Toast.LENGTH_SHORT).show();
@@ -162,6 +171,7 @@ public class CasinoActivity extends AppCompatActivity {
         currentValue -= montoApuesta;
         textViewRestantes.setText(String.valueOf(currentValue));
         textViewSaldo.setText("Saldo: " + currentValue);
+        apuestas.put(numeroString,Integer.parseInt(montoString));
 
 
 
@@ -170,10 +180,13 @@ public class CasinoActivity extends AppCompatActivity {
     }
 
     private void getTamano() {
-        int tamanoSector = 360 / sectores.length;
-
+        int tamanoSector = 360/sectores.length;
         for (int i = 0; i < sectores.length; i++) {
-            tamanosSector[i] = (i + 1) * tamanoSector;
+            if (i % 2 != 0) {
+                tamanosSector[i] = 1+tamanoSector;
+            } else {
+                tamanosSector[i] = tamanoSector;
+            }
         }
     }
 }
