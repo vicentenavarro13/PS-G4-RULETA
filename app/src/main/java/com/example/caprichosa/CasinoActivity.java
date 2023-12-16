@@ -73,7 +73,7 @@ public class CasinoActivity extends AppCompatActivity {
     private void girar() {
         roulette.setImageResource(R.drawable.casino);
        // apuestas = new HashMap<>();
-        MediaPlayer song = MediaPlayer.create(this, R.raw.ruletagirando);
+        MediaPlayer song = MediaPlayer.create(this, R.raw.ruletasonido);
         song.start();
         /*
         String valoresString = editTextApuesta.getText().toString().trim();
