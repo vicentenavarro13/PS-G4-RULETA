@@ -31,6 +31,9 @@
             android:name=".RuletaSuerteActivity"
             android:exported="false" />
         <activity
+            android:name=".RuletaRetosActivity"
+            android:exported="false" />
+        <activity
             android:name=".TitleActivity"
             android:exported="true">
 

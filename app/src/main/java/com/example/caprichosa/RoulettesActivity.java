@@ -18,6 +18,7 @@ public class RoulettesActivity extends AppCompatActivity {
         Button ruletaCasinoButton = findViewById(R.id.casino);
         Button ruletaRusaButton = findViewById(R.id.rusa);
         Button ruletaFortunaButton = findViewById(R.id.suerte);
+        Button ruletaRetosButton = findViewById(R.id.retos);
 
 
         ruletaPersonalizableButton.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +54,14 @@ public class RoulettesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Lanzar la actividad de la ruleta de la fortuna
                 Intent intent = new Intent(RoulettesActivity.this, RuletaSuerteActivity.class);
+                startActivity(intent);
+            }
+        });
+        ruletaRetosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lanzar la actividad de la ruleta de retos
+                Intent intent = new Intent(RoulettesActivity.this, RuletaRetosActivity.class);
                 startActivity(intent);
             }
         });

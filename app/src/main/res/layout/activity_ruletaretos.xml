@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CasinoActivity"
->
+    tools:context=".RuletaRetosActivity">
 
     <ImageView
         android:id="@+id/ruleta"
-        android:layout_width="361dp"
-        android:layout_height="284dp"
+        android:layout_width="349dp"
+        android:layout_height="358dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:scaleType="centerInside"
-        android:src="@drawable/rusa2" />
+        android:src="@drawable/retos" />
 
     <ImageView
         android:id="@+id/flecha"
-        android:layout_width="50dp"
+        android:layout_width="20dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/ruleta"

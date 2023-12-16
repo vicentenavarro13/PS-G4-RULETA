@@ -106,7 +106,7 @@ public class CasinoActivity extends AppCompatActivity {
 
         int go_to = grados / 360;
 
-        animacion.setDuration(3600);
+        animacion.setDuration(6500);
 
         animacion.setFillAfter(true);
         animacion.setInterpolator(new DecelerateInterpolator());
@@ -125,10 +125,10 @@ public class CasinoActivity extends AppCompatActivity {
                 if (apuestas.get(valor) != null || apuestas.get("") != null && valor.equals("0")) {
                     song = MediaPlayer.create(context, R.raw.victorymusic);
                     Toast.makeText(CasinoActivity.this, "Ganaste en el número: " + valor, Toast.LENGTH_SHORT).show();
-                    currentValue += (apuestas.get(valor) * multiplicadorGanancia);
+                    currentValue += (apuestas.get(valor) );
                     textViewSaldo.setText("Saldo: "+currentValue);
                 } else {
-                    song = MediaPlayer.create(context, R.raw.lossmusic);
+                    song = MediaPlayer.create(context, R.raw.loss1);
                     Toast.makeText(CasinoActivity.this, "Perdiste en el número: " + valor, Toast.LENGTH_SHORT).show();
                 }
 
