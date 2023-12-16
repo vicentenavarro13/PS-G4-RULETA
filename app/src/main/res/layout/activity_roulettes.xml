@@ -33,4 +33,11 @@
         android:text="Ruleta rusa"
         android:layout_below="@id/casino" />
 
+    <Button
+        android:id="@+id/suerte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ruleta de la fortuna"
+        android:layout_below="@id/rusa" />
+
 </RelativeLayout>

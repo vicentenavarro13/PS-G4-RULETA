@@ -39,7 +39,7 @@ public class CasinoActivity extends AppCompatActivity {
 
     private int currentValue = 100; // Saldo inicial
     private int heldValue = 0;
-    private int multiplicadorGanancia = 36; // Ajusta según las reglas de tu juego
+    private int multiplicadorGanancia = 2;
     private double montoApuesta = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -28,6 +28,9 @@
             android:name=".RussianActivity"
             android:exported="false" />
         <activity
+            android:name=".RuletaSuerteActivity"
+            android:exported="false" />
+        <activity
             android:name=".TitleActivity"
             android:exported="true">
 
