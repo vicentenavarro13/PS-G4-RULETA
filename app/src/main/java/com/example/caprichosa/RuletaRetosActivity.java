@@ -17,8 +17,8 @@ import java.util.Random;
 
 public class RuletaRetosActivity extends AppCompatActivity {
     private ImageView ruleta;
-    private static final String[] sectores = {"Ayuda final", "100", "Gran premio", "Gran premio", "150", "Pierde turno", "25", "50", "Bote", "75", "Letra", "Quiebra",
-            "Premio", "75", "100", "Me lo quedo", "75", "Pierde turno", "?", "Comodin", "50", "0", "25", "Quiebra"};
+    private static final String[] sectores = { "Tormento chino", "Bailar", "Pintar barba", "Pintar los labios", "Reto libre", "Invitar el jugo", "Invitar la botana", "Imitar un mimo", "Imitar una gallina", "Hacer como perro", "Todos 1 regalo",
+            "Acostarse en suelo", "Apreton de mano", "Todos te saludan", "Todos 1 abrazo", "Mojar el pantalon", "Cargar 1 amigo", "3 sonidos animales", "Comer 1/4 ajo", "Todos despeinarme", "Cantar", "Todos me dan 10 $", "Comer jabon", "Comer una cebolla", "Ponerse de cabeza", "Estatua de marfil", "Pintar lentes", "Grita me como los mocos", "Comer chile", "Quitar 1 cabello", "Besar el suelo", "Todos me dan 1$", "Imitar un bebe", "Pintar bigote","10 lagartijas","Todos un pellisco"};
     private static final int[] tamanosSector = new int[sectores.length];
     private static final Random random = new Random();
     private boolean girando = false;
@@ -29,7 +29,7 @@ public class RuletaRetosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruletaretos);
-        mediaPlayer = MediaPlayer.create(this, R.raw.fortuna);
+        mediaPlayer = MediaPlayer.create(this, R.raw.ruletasonido);
 
         final ImageView boton = findViewById(R.id.boton);
         ruleta = findViewById(R.id.ruleta);
@@ -67,7 +67,7 @@ public class RuletaRetosActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Toast.makeText(RuletaRetosActivity.this, "Ha sacado " + sectores[sectores.length - (grados - 1)], Toast.LENGTH_SHORT).show();
+                Toast.makeText(RuletaRetosActivity.this, "Ha sacado " + sectores[sectores.length - (grados)], Toast.LENGTH_SHORT).show();
                 mediaPlayer.pause();
                 mediaPlayer.seekTo(0);
                 girando = false;

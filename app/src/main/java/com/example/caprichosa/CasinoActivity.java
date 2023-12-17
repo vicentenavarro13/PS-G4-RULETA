@@ -125,7 +125,7 @@ public class CasinoActivity extends AppCompatActivity {
                 if (apuestas.get(valor) != null || apuestas.get("") != null && valor.equals("0")) {
                     song = MediaPlayer.create(context, R.raw.victorymusic);
                     Toast.makeText(CasinoActivity.this, "Ganaste en el número: " + valor, Toast.LENGTH_SHORT).show();
-                    currentValue += (apuestas.get(valor) );
+                    currentValue += (apuestas.get(valor) * multiplicadorGanancia );
                     textViewSaldo.setText("Saldo: "+currentValue);
                 } else {
                     song = MediaPlayer.create(context, R.raw.loss1);
